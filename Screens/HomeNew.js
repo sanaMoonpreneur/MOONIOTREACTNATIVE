@@ -119,6 +119,7 @@ const HomeNew = (props) => {
 
   const fetchData = async () => {
     const newToken = await fetchToken();
+    console.log('Token below');
     console.log(newToken);
     if (newToken) {
       fetchDevices(newToken);
@@ -137,17 +138,7 @@ const HomeNew = (props) => {
   }) => (
 
 
-    <TouchableOpacity style={{
-      flexDirection: "row",
-      backgroundColor: bg(),
-      padding: 20,
-      marginHorizontal: 20,
-      borderRadius: 20,
-      alignItems: "center",
-      margin: 10,
-      justifyContent: 'space-between',
-      width: '90%'
-    }}
+    <TouchableOpacity style={styles.deviceInfoContainer}
       onPress={() => {
         props.navigation.navigate("DeviceDetail", { screenName: 'HomeNew', device1: item, param3: token });
         console.log(item)
@@ -155,58 +146,37 @@ const HomeNew = (props) => {
       }}
     >
 
-      <View style={{ flexDirection: 'row', width: '70%' }}>
+      <View style={styles.deviceInfoContent}>
 
         {device_hardware == "ardunino" ? (<Image
-          style={{ width: 50, height: 50, borderRadius: 5 }}
+          style={styles.deviceImage}
           source={{ uri: 'https://moonhub.moonpreneur.com/mpdashboard/iot-images/Arduino.webp' }}
         />) : device_hardware == 'Arduino' ? (<Image
-          style={{ width: 40, height: 40, borderRadius: 5 }}
+          style={styles.deviceImage}
           source={{ uri: 'https://moonhub.moonpreneur.com/mpdashboard/iot-images/RasberryPie.webp' }}
         />) : device_hardware == 'NodeMCU' ? (<Image
-          style={{ width: 40, height: 40, borderRadius: 5 }}
+          style={styles.deviceImage}
           source={{ uri: 'https://moonhub.moonpreneur.com/mpdashboard/iot-images/NodeMCU.webp' }}
         />) : <Image
-          style={{ width: 40, height: 40, borderRadius: 5 }}
-          source={{ uri: 'https://imgs.search.brave.com/EX19lry8PZrFztT_V1Sr_ZE8PjhlEmwfUvbroIQSSZE/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oYWNr/c3Rlci5pbWdpeC5u/ZXQvdXBsb2Fkcy9h/dHRhY2htZW50cy81/MDI2Mzcvcm9ib3Rf/Y2FyX0JvYk9xdnZS/cTEuanBnP2F1dG89/Y29tcHJlc3MsZm9y/bWF0Jnc9NDAwJmg9/MzAwJmZpdD1taW4' }}
+          style={styles.deviceImage}
+          source={{ uri: 'https://imgs.search.brave.com/EX19lry8PZrFztT_V1Sr_ZE8PjhlEmwfUvbroIQSSZE/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9oYWNr/c3Rlci5pbWdpeC5u/ZXQvdXBsb2Fkcy9h/dHRhY2htZW50cy81/MDI2Mzcvcm9ib3Rf/Y2FyX0JvYk9xdnZS/cTEuanBnP2F1dG89/Y29tcHJlc3MsZm9ybWF0Jnc9NDAwJmg9/MzAwJmZpdD1taW4' }}
         />}
 
 
         <View>
           <Text
-            style={{
-              color: "#345c74",
-              fontWeight: "bold",
-              fontSize: 15,
-              paddingHorizontal: 20,
-              width: 190
-            }}
+            style={styles.deviceNameText}
           >
             {user_device_name}
           </Text>
-          <Text style={{
-            color: "#345c74",
-            fontWeight: "bold",
-            fontSize: 13,
-            paddingHorizontal: 20,
-            width: 170
-          }}>
+          <Text style={styles.deviceConnectionText}>
             {device_connection_type}
           </Text>
           <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: 8,
-            }}
+            style={styles.deviceLastConnectedContainer}
           >
 
-            <Text style={{
-              color: "#f58084",
-              fontWeight: "bold",
-              fontSize: 12,
-              paddingHorizontal: 20
-            }}>
+            <Text style={styles.deviceLastConnectedText}>
               {lastConnected}
             </Text>
 
@@ -214,50 +184,17 @@ const HomeNew = (props) => {
         </View>
       </View>
       {device_status == "Connected" ? <View
-        style={{
-
-          borderRadius: 50,
-          backgroundColor: 'green',
-          width: 10,
-          height: 10,
-          //position:'absolute',
-          bottom: 0,
-          right: 0,
-          margin: 20
-        }}>
-
+        style={styles.statusConnected}>
 
       </View> : <View
-        style={{
-          margin: 20,
-          borderRadius: 50,
-          backgroundColor: 'red',
-          width: 10,
-          height: 10,
-          bottom: 0,
-          right: 0,
-        }}>
-
+        style={styles.statusDisconnected}>
 
       </View>}
 
-      <View style={{
-        width: 30,
-        height: 30,
-        borderRadius: 10,
-        color: "f580084",
-        shadowColor: "#FFF",
-        bgColor: "#FFF",
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        marginRight: 10
-      }}
-
-      >
+      <View style={styles.deviceActionIcon}>
         <Image
           source={require('../images/pl.png')}
-          style={{ width: 9, height: 9, resizeMode: 'contain' }}
+          style={styles.deviceActionImage}
         />
       </View>
 
@@ -283,26 +220,16 @@ const HomeNew = (props) => {
 
     <ImageBackground
       source={require('../images/Home.png')}
-      style={{ width: "100%", height: "100%" }}
+      style={styles.backgroundImage}
     >
 
       <ScrollView refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
 
-        <View style={{ flexDirection: 'row', paddingHorizontal: 10 }}>
-          <View style={{ width: '85%', marginTop: 50 }}>
-            <TouchableOpacity style={{
-              width: '40',
-              paddingHorizontal: 10,
-              paddingVertical: 13,
-              borderRadius: 10,
-              backgroundColor: "#d1a0a7",
-              alignSelf: 'flex-start',
-              marginTop: 20,
-              marginLeft: 10
-            }}
-
+        <View style={styles.headerContainer}>
+          <View style={styles.headerContent}>
+            <TouchableOpacity style={styles.drawerButton}
               onPress={() => {
                 navigation.openDrawer();
               }}
@@ -310,39 +237,25 @@ const HomeNew = (props) => {
             >
               <Image
                 source={require('../images/hum.png')}
-                style={{ height: 15, width: 20 }}
+                style={styles.drawerButtonImage}
               />
             </TouchableOpacity>
 
-            <View style={{ width: "90%", marginTop: 20, marginLeft: 10 }}>
-              <Text style={{
-                fontSize: 33,
-
-                fontWeight: "bold",
-                color: "#FFF"
-              }}>Welcome Home</Text>
-              <Text style={{
-
-                fontSize: 30,
-
-                fontWeight: "bold",
-                color: "#FFF"
-              }}>{user}</Text>
+            <View style={styles.welcomeTextContainer}>
+              <Text style={styles.welcomeText}>
+                Welcome Home
+              </Text>
+              <Text style={styles.userNameText}>
+                {user}
+              </Text>
             </View>
           </View>
         </View>
 
-        <View style={styles.summaryContainer}>
+        <View style={styles.addedDevicesHeaderContainer}>
         </View>
 
-        <Text style={{
-          color: "yellow",
-          fontWeight: "bold",
-          fontSize: 20,
-          paddingHorizontal: 22,
-          marginTop: 20,
-          marginBottom: 10
-        }}>Added Devices</Text>
+        <Text style={styles.addedDevicesText}>Added Devices</Text>
 
         {isLoading ?
           (<ActivityIndicator />
@@ -358,66 +271,33 @@ const HomeNew = (props) => {
                   keyExtractor={(item, index) => index.toString()}
 
                 />
-                <TouchableOpacity style={{
-                  flexDirection: "row",
-                  backgroundColor: "#f58084",
-                  alignItems: "center",
-                  marginTop: 20,
-                  width: 130,
-                  paddingVertical: 10,
-                  borderRadius: 10,
-                  paddingHorizontal: 10,
-                  margin: 20
-                }}
+                <TouchableOpacity style={styles.showMoreButton}
                   onPress={() => {
                     fetchData()
                     props.navigation.navigate("DeviceList", { param1: devicesResponse, param2: renderItem });
 
                   }}
                 >
-                  <Text style={{
-                    color: "#FFF",
-                    fontWeight: "bold",
-                    fontSize: 12
-                  }}>Show More</Text>
+                  <Text style={styles.showMoreText}>Show More</Text>
                   <Image
                     source={require('../images/a3.png')}
-                    style={{ marginLeft: 20, width: 8, height: 8 }}
+                    style={styles.showMoreIcon}
                   />
                 </TouchableOpacity>
               </View>
             ) : (
-              <View style={{
-                margin: 10,
-                alignSelf: 'center',
-              }}       >
+              <View style={styles.noDataContainer}       >
 
-                <Image source={require('../assets/images/nodataImage.png')} style={{ width: 300, height: 200, resizeMode: 'contain' }} />
+                <Image source={require('../assets/images/nodataImage.png')} style={styles.noDataImage} />
 
 
                 <TouchableOpacity
                   onPress={() => {
                     props.navigation.navigate('ChooseHardware');
                   }}
-                  style={{
-                    flexDirection: "row",
-                    backgroundColor: "#f58084",
-                    alignItems: "center",
-                    marginTop: 20,
-                    width: 120,
-                    padding: 10,
-                    borderRadius: 14,
-                    alignSelf: "center",
-                    marginBottom: 30,
-                  }}
+                  style={styles.addDeviceButton}
                 >
-                  <Text style={{
-                    color: "#FFF",
-                    fontWeight: "bold",
-                    fontSize: 14,
-                    textAlign: "center",
-                    alignSelf: 'center',
-                  }}>Add Device</Text>
+                  <Text style={styles.addDeviceText}>Add Device</Text>
                 </TouchableOpacity>
 
               </View>
@@ -431,68 +311,186 @@ const HomeNew = (props) => {
 };
 
 const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: "#000000"
+  backgroundImage: {
+    width: "100%",
+    height: "100%",
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-
+  headerContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 10
+  },
+  headerContent: {
+    width: '85%',
+    marginTop: 50
+  },
+  drawerButton: {
+    width: '40',
+    paddingHorizontal: 10,
+    paddingVertical: 13,
+    borderRadius: 10,
+    backgroundColor: "#d1a0a7",
+    alignSelf: 'flex-start',
     marginTop: 20,
-
-
+    marginLeft: 10
   },
-  profileImage: {
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    marginRight: 10,
+  drawerButtonImage: {
+    height: 15,
+    width: 20
   },
-  profileInfo: {
-    flex: 1,
+  welcomeTextContainer: {
+    width: "90%",
+    marginTop: 20,
+    marginLeft: 10
   },
   welcomeText: {
-    fontSize: 18,
+    fontSize: 33,
     fontWeight: "bold",
-    color: "#560CCE",
+    color: "#FFF"
   },
-  welcomeTextLight: {
-    fontSize: 16,
-    color: "#560CCE",
+  userNameText: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#FFF"
   },
-  userName: {
-    fontSize: 16,
-    color: "#ecf0f1",
+  addedDevicesHeaderContainer: {
+    marginTop: 145,
   },
-
-  summaryContainer: {
+  addedDevicesText: {
+    color: "#e3755b",
+    fontWeight: "bold",
+    fontSize: 20,
+    paddingHorizontal: 22,
+    marginTop: 20,
+    marginBottom: 10
+  },
+  deviceInfoContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FFF",
-    borderRadius: 12,
+    backgroundColor: bg(),
+    padding: 20,
     marginHorizontal: 20,
-    marginTop: 30
-  },
-  summaryGradient: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    borderRadius: 10,
-    overflow: "hidden",
-    width: "95%",
-    backgroundColor: 'white'
-  },
-  summaryItem: {
+    borderRadius: 20,
     alignItems: "center",
-    padding: 8,
+    margin: 10,
+    justifyContent: 'space-between',
+    width: '90%'
   },
-  summaryIcon: {
-    fontSize: 17,
+  deviceInfoContent: {
+    flexDirection: 'row',
+    width: '70%'
+  },
+  deviceImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 5
+  },
+  deviceNameText: {
+    color: "#345c74",
+    fontWeight: "bold",
+    fontSize: 15,
+    paddingHorizontal: 20,
+    width: 190
+  },
+  deviceConnectionText: {
+    color: "#345c74",
+    fontWeight: "bold",
+    fontSize: 13,
+    paddingHorizontal: 20,
+    width: 170
+  },
+  deviceLastConnectedContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 8,
+  },
+  deviceLastConnectedText: {
     color: "#f58084",
-    marginBottom: 8,
+    fontWeight: "bold",
+    fontSize: 12,
+    paddingHorizontal: 20
   },
+  statusConnected: {
+    borderRadius: 50,
+    backgroundColor: 'green',
+    width: 10,
+    height: 10,
+    bottom: 0,
+    right: 0,
+    margin: 20
+  },
+  statusDisconnected: {
+    margin: 20,
+    borderRadius: 50,
+    backgroundColor: 'red',
+    width: 10,
+    height: 10,
+    bottom: 0,
+    right: 0,
+  },
+  deviceActionIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 10,
+    color: "f580084",
+    shadowColor: "#FFF",
+    bgColor: "#FFF",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginRight: 10
+  },
+  deviceActionImage: {
+    width: 9,
+    height: 9,
+    resizeMode: 'contain'
+  },
+  showMoreButton: {
+    flexDirection: "row",
+    backgroundColor: "#f58084",
+    alignItems: "center",
+    marginTop: 20,
+    width: 130,
+    paddingVertical: 10,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    margin: 20
+  },
+  showMoreText: {
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 12
+  },
+  showMoreIcon: {
+    marginLeft: 20,
+    width: 8,
+    height: 8
+  },
+  noDataContainer: {
+    margin: 10,
+    alignSelf: 'center',
+  },
+  noDataImage: {
+    width: 300,
+    height: 200,
+    resizeMode: 'contain'
+  },
+  addDeviceButton: {
+    flexDirection: "row",
+    backgroundColor: "#f58084",
+    alignItems: "center",
+    marginTop: 20,
+    width: 120,
+    padding: 10,
+    borderRadius: 14,
+    alignSelf: "center",
+    marginBottom: 30,
+  },
+  addDeviceText: {
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 14,
+    textAlign: "center",
+    alignSelf: 'center',
+  }
 });
 
 export default HomeNew;
