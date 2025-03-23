@@ -30,14 +30,6 @@ const LoginScreen = (props) => {
     const [password, setPassword] = useState({ value: 'A8qXeoFwTzsX', error: '' });
 
     const handleLogin = async () => {
-        const emailError = nameValidator(username.value);
-        const passwordError = passwordValidator(password.value);
-        if (emailError || passwordError) {
-            setUsername({ ...username, error: emailError });
-            setPassword({ ...password, error: passwordError });
-            return;
-        }
-
         try {
             const apiUrl = 'https://test.moonr.com/LMSService/api/Account/getUserToken';
             const response = await fetch(apiUrl, {
@@ -80,9 +72,7 @@ const LoginScreen = (props) => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.switchContainer}>
-                {/* <Switch value={isDarkTheme} onChange={() => { }} /> */}
-            </View>
+
             <View style={styles.headerContainer}>
                 <Text style={styles.headerText}>Login</Text>
                 <LottieView
@@ -145,14 +135,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 20,
     },
-    switchContainer: {
-        marginTop: '15%',
-        alignSelf: 'center',
-    },
     headerContainer: {
         height: height * 0.35,
         width: '100%',
         alignItems: 'center',
+        marginTop: '25%',
+        alignSelf: 'center',
     },
     headerText: {
         color: '#345c74',

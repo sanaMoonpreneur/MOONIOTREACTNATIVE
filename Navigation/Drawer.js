@@ -2,7 +2,7 @@ import { createDrawerNavigator, NavigationContainer } from '@react-navigation/dr
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialIcons } from "@expo/vector-icons";
-import HomeNew from '../Screens/HomeNew';
+import HomeNew from '../Screens/Home';
 import ChooseHardware from '../Screens/ChooseHardware';
 import Profile from '../Screens/Profile';
 import PrivacyPolicy from '../Screens/PrivacyPolicy';

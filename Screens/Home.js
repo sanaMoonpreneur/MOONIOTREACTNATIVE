@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from "react-native-virtualized-view";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NavigationContainer, useIsFocused } from '@react-navigation/native';
-import ChooseHardware from '../Screens/ChooseHardware';
+import ChooseHardware from './ChooseHardware';
 
 
 let arr = ["#fdddf3", "#fef8e3", "#fcf2ff", "#fff0ee"];
@@ -28,7 +28,7 @@ const bg = () => {
   return (color)
 }
 
-const HomeNew = (props) => {
+const Home = (props) => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [selectedColor, setSelectedColor] = useState("#414757");
@@ -137,7 +137,6 @@ const HomeNew = (props) => {
     device_status,
   }) => (
 
-
     <TouchableOpacity style={styles.deviceInfoContainer}
       onPress={() => {
         props.navigation.navigate("DeviceDetail", { screenName: 'HomeNew', device1: item, param3: token });
@@ -163,24 +162,22 @@ const HomeNew = (props) => {
         />}
 
 
-        <View>
-          <Text
-            style={styles.deviceNameText}
-          >
+        <View style={{justifyContent:'center',}}>
+          <View>
+          <Text style={styles.deviceNameText}>
             {user_device_name}
           </Text>
+
+
+          <Text style={styles.deviceLastConnectedText}>
+            {lastConnected}
+          </Text>
+          </View>
+
           <Text style={styles.deviceConnectionText}>
             {device_connection_type}
           </Text>
-          <View
-            style={styles.deviceLastConnectedContainer}
-          >
 
-            <Text style={styles.deviceLastConnectedText}>
-              {lastConnected}
-            </Text>
-
-          </View>
         </View>
       </View>
       {device_status == "Connected" ? <View
@@ -252,7 +249,58 @@ const HomeNew = (props) => {
           </View>
         </View>
 
-        <View style={styles.addedDevicesHeaderContainer}>
+        {/* <View style={styles.addedDevicesHeaderContainer}>
+        </View> */}
+        <View style={{
+          flexDirection: "row",
+          backgroundColor: "#FFF2F2",
+          marginTop: 35,
+          marginHorizontal: 20,
+          borderRadius: 20,
+          paddingVertical: 35,
+          paddingLeft: 30
+        }}>
+          <View>
+            <Text style={{
+              color: "#345c74",
+              fontSize: 20,
+              fontWeight: "bold",
+              width: 250,
+              paddingRight: 100
+            }}>
+              Start learning new Stuff
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                props.navigation.navigate('Stuff');
+              }}
+              style={{
+                flexDirection: "row",
+                backgroundColor: "#f58084",
+                alignItems: "center",
+                marginTop: 20,
+                width: 130,
+                paddingVertical: 10,
+                borderRadius: 14,
+                paddingHorizontal: 10
+              }}
+            >
+              <Text style={{
+                color: "#FFF",
+                fontWeight: "bold",
+                fontSize: 12
+              }}>IOT App</Text>
+              <Image
+                source={require('../images/a3.png')}
+                style={{ marginLeft: 20, width: 8, height: 8 }}
+              />
+            </TouchableOpacity>
+          </View>
+          <Image
+            source={require('../images/undraw.png')}
+            style={{ marginLeft: -80, marginTop: 35 }}
+          />
+
         </View>
 
         <Text style={styles.addedDevicesText}>Added Devices</Text>
@@ -271,22 +319,10 @@ const HomeNew = (props) => {
                   keyExtractor={(item, index) => index.toString()}
 
                 />
-                <TouchableOpacity style={styles.showMoreButton}
-                  onPress={() => {
-                    fetchData()
-                    props.navigation.navigate("DeviceList", { param1: devicesResponse, param2: renderItem });
 
-                  }}
-                >
-                  <Text style={styles.showMoreText}>Show More</Text>
-                  <Image
-                    source={require('../images/a3.png')}
-                    style={styles.showMoreIcon}
-                  />
-                </TouchableOpacity>
               </View>
             ) : (
-              <View style={styles.noDataContainer}       >
+              <View style={styles.noDataContainer}>
 
                 <Image source={require('../assets/images/nodataImage.png')} style={styles.noDataImage} />
 
@@ -339,7 +375,7 @@ const styles = StyleSheet.create({
   },
   welcomeTextContainer: {
     width: "90%",
-    marginTop: 20,
+    marginTop: 25,
     marginLeft: 10
   },
   welcomeText: {
@@ -356,7 +392,7 @@ const styles = StyleSheet.create({
     marginTop: 145,
   },
   addedDevicesText: {
-    color: "#e3755b",
+    color: "#EC8588",
     fontWeight: "bold",
     fontSize: 20,
     paddingHorizontal: 22,
@@ -379,13 +415,14 @@ const styles = StyleSheet.create({
     width: '70%'
   },
   deviceImage: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 5
   },
   deviceNameText: {
     color: "#345c74",
     fontWeight: "bold",
+    justifyContent:'center',
     fontSize: 15,
     paddingHorizontal: 20,
     width: 190
@@ -406,7 +443,8 @@ const styles = StyleSheet.create({
     color: "#f58084",
     fontWeight: "bold",
     fontSize: 12,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    marginRight:20
   },
   statusConnected: {
     borderRadius: 50,
@@ -493,4 +531,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeNew;
+export default Home;

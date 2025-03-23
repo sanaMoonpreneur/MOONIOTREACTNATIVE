@@ -69,7 +69,6 @@ const ChooseHardware = ({ navigation }) => {
                 <Image source={{ uri: item.hardware_image }} style={styles.hardwareImage} />
                 <View style={styles.hardwareTextContainer}>
                   <Text style={styles.hardwareName}>{item.hardware_name}</Text>
-                  <Text style={styles.hardwareDesc}>Description about Hardware</Text>
                 </View>
               </View>
             </TouchableOpacity>

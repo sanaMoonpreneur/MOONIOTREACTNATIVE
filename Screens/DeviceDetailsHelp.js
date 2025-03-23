@@ -58,7 +58,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
         </TouchableOpacity>
 
       </View>
-      <Text style={styles.deviceNameTitle}>{device.device_name}</Text>
+      <Text style={styles.deviceNameTitle}>{device.user_device_name}</Text>
 
       <View style={styles.container}>
 
@@ -77,9 +77,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
-                copyToClipboard(device.device_token)
-              }
+              onPress={() => copyToClipboard(device.device_token)}
             >
               <Ionicons name="copy" size={18} color="#5A5A5A" />
             </TouchableOpacity>
@@ -97,7 +95,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
+              onPress={()=>
                 copyToClipboard(imports)
               }
             >
@@ -115,9 +113,8 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
-                copyToClipboard(constants)
-              }
+              onPress={() => copyToClipboard(constants)}
+
             >
               <Ionicons name="copy" size={18} color="#5A5A5A" />
             </TouchableOpacity>
@@ -133,7 +130,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
+              onPress={()=>
                 copyToClipboard(ledPinConstant)
               }
             >
@@ -151,7 +148,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
+              onPress={()=>
                 copyToClipboard(initVariableConstant)
               }
             >
@@ -170,7 +167,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
+              onPress={()=>
                 copyToClipboard(initializeWifiConstants)
               }
             >
@@ -188,7 +185,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
+              onPress={()=>
                 copyToClipboard(validateDeviceStatus)
               }
             >
@@ -208,7 +205,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
+              onPress={()=>
                 copyToClipboard(getLEDStateConstant)
               }
             >
@@ -225,7 +222,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
             <TouchableOpacity
               style={styles.copyIconStyle}
-              onPress={
+              onPress={()=>
                 copyToClipboard(updateLEDStateConstant)
               }
             >

@@ -87,10 +87,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     text: {
-        color: 'black',
+        color: '#333',
         fontSize: 16,
-        textAlign: 'justify',
-        marginBottom: 10,
+        fontFamily: 'serif',
+        textAlign: 'justify', 
+        marginBottom: 12,
     },
     linkButton: {
         marginTop: 15,
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     linkText: {
-        color: 'black',
+        color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
     },

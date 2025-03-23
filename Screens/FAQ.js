@@ -56,7 +56,6 @@ const FAQScreen = () => {
                   padding: 15,
                   marginVertical: 10,
                   borderRadius: 10,
-                  alignItems: 'center'
                 }}
                 onPress={() => toggleExpand(item.id)}
               >

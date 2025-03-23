@@ -5,41 +5,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SignUp from './Screens/SignUp';
-import SignIn from './Screens/Signin';
 import LoginScreen from './Screens/LoginScreen';
-import DeviceList from './Screens/DeviceList';
 import DeviceDetail from './Screens/DeviceDetail';
-import DC1 from './Screens/DC1';
+import DeviceControl from './Screens/DeviceControl';
 import DeviceDetailsHelp from './Screens/DeviceDetailsHelp';
 import DrawerScreen from './Navigation/Drawer';
 import ChooseHardware from './Screens/ChooseHardware';
 import AddDevice from './Screens/AddDevice';
+import SensorControl from './Screens/SensorControl';
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const storedLoginResponse = await AsyncStorage.getItem('loginResponse');
-        if (storedLoginResponse) {
-          const parsedResponse = JSON.parse(storedLoginResponse);
-          const newToken = parsedResponse.result[0].token;
-          setTokenExist(true)
-        }
-      } catch (error) {
-        // console.error('Error retrieving token from AsyncStorage:', error);
-      }
-    };
-
-    fetchToken();
-  }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LogIn">
-        {/* <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
-          <Stack.Screen name="SignIn" component={SignIn}></Stack.Screen> */}
         <Stack.Screen name="LogIn" component={LoginScreen} options={{
           title: "LogIn",
           headerShown: false,
@@ -54,7 +34,8 @@ export default function App() {
           headerShown: false,
         }}></Stack.Screen>
         <Stack.Screen name="Drawer" component={DrawerScreen} options={{ headerShown: false }}></Stack.Screen>
-        <Stack.Screen name="DC1" component={DC1} options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen name="DeviceControl" component={DeviceControl} options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen name="SensorControl" component={SensorControl} options={{ headerShown: false }}></Stack.Screen>
         <Stack.Screen name="ChooseHardware" component={ChooseHardware} options={{ headerShown: false }}></Stack.Screen>
 
       </Stack.Navigator>
