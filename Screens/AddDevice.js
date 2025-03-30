@@ -64,7 +64,7 @@ const AddDevice = (props) => {
       const result = await response.json();
       if (!result.isError) {
         Alert.alert('Success', 'Device added successfully.');
-        props.navigation.goBack();
+        props.navigation.navigate('Home');
       } else {
         Alert.alert('Error', 'Failed to add device. Please try again.');
       }
@@ -80,7 +80,7 @@ const AddDevice = (props) => {
           <Image source={require('../images/a1.png')} style={styles.backIcon} />
         </TouchableOpacity>
       </View>
-      <Text style={styles.title}>Device Details</Text>
+      <Text style={styles.title}>Add Device</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Device Name</Text>
         <TextInput
@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignSelf: 'center',
     paddingVertical: 10,
-    height:45,
-    width:'50%',
+    height: 45,
+    width: '50%',
     paddingHorizontal: 20,
     backgroundColor: 'white',
     borderRadius: 25,
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: '#EC8588',
     fontSize: 20,
-    textAlign:'center',
+    textAlign: 'center',
     fontWeight: "500",
   }
 });

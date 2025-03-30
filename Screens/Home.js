@@ -1,44 +1,19 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  ImageBackground,
-  ActivityIndicator,
-  RefreshControl,
-  Alert
-} from "react-native";
-
-import { Ionicons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet, FlatList, ImageBackground, ActivityIndicator, RefreshControl, Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from "react-native-virtualized-view";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import { NavigationContainer, useIsFocused } from '@react-navigation/native';
-import ChooseHardware from './ChooseHardware';
+import { useNavigation } from "@react-navigation/native";
+import { useIsFocused } from '@react-navigation/native';
 
-
-let arr = ["#fdddf3", "#fef8e3", "#fcf2ff", "#fff0ee"];
-
-const bg = () => {
-  color = (arr[(Math.floor(Math.random() * arr.length))]);
-  return (color)
-}
 
 const Home = (props) => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-  const [selectedColor, setSelectedColor] = useState("#414757");
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [devicesResponse, setDevicesResponse] = useState(null);
   const [token, setToken] = useState('');
-  const [statusColor, setstatusColor] = useState('red');
   const [refreshing, setRefreshing] = useState(false);
-  const [callingStatus, setCallingStatus] = useState(false);
 
 
   useEffect(() => {
@@ -46,7 +21,6 @@ const Home = (props) => {
       fetchData();
       console.log('focused')
     }
-
   }, [isFocused]);
 
   const fetchToken = async () => {
@@ -89,17 +63,6 @@ const Home = (props) => {
 
       if (!response.ok) {
         console.error(`HTTP error! Status: ${response.status}`);
-
-        if (response.status === 401) {
-          Alert.alert('Alert', 'You are logged out. Please login again', [
-            {
-              text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
-            { text: 'OK', onPress: () => navigation.navigate('LogIn') },
-          ]);
-        }
       }
 
       const result = await response.json();
@@ -139,9 +102,8 @@ const Home = (props) => {
 
     <TouchableOpacity style={styles.deviceInfoContainer}
       onPress={() => {
-        props.navigation.navigate("DeviceDetail", { screenName: 'HomeNew', device1: item, param3: token });
+        props.navigation.navigate("DeviceDetail", { screenName: 'Home', device1: item, param3: token });
         console.log(item)
-
       }}
     >
 
@@ -162,16 +124,16 @@ const Home = (props) => {
         />}
 
 
-        <View style={{justifyContent:'center',}}>
+        <View style={{ justifyContent: 'center', }}>
           <View>
-          <Text style={styles.deviceNameText}>
-            {user_device_name}
-          </Text>
+            <Text style={styles.deviceNameText}>
+              {user_device_name}
+            </Text>
 
 
-          <Text style={styles.deviceLastConnectedText}>
-            {lastConnected}
-          </Text>
+            <Text style={styles.deviceLastConnectedText}>
+              {lastConnected}
+            </Text>
           </View>
 
           <Text style={styles.deviceConnectionText}>
@@ -249,8 +211,6 @@ const Home = (props) => {
           </View>
         </View>
 
-        {/* <View style={styles.addedDevicesHeaderContainer}>
-        </View> */}
         <View style={{
           flexDirection: "row",
           backgroundColor: "#FFF2F2",
@@ -268,33 +228,29 @@ const Home = (props) => {
               width: 250,
               paddingRight: 100
             }}>
-              Start learning new Stuff
+              Start Controlling Your Devices
             </Text>
-            <TouchableOpacity
-              onPress={() => {
-                props.navigation.navigate('Stuff');
-              }}
+            <View
+
               style={{
-                flexDirection: "row",
                 backgroundColor: "#f58084",
                 alignItems: "center",
                 marginTop: 20,
                 width: 130,
-                paddingVertical: 10,
-                borderRadius: 14,
+                height: 30,
+                justifyContent: 'center',
+                borderRadius: 20,
                 paddingHorizontal: 10
               }}
             >
               <Text style={{
                 color: "#FFF",
                 fontWeight: "bold",
-                fontSize: 12
-              }}>IOT App</Text>
-              <Image
-                source={require('../images/a3.png')}
-                style={{ marginLeft: 20, width: 8, height: 8 }}
-              />
-            </TouchableOpacity>
+                fontSize: 18,
+                alignSelf: 'center',
+              }}>Let's go !</Text>
+
+            </View>
           </View>
           <Image
             source={require('../images/undraw.png')}
@@ -338,7 +294,8 @@ const Home = (props) => {
 
               </View>
             )
-          )}
+          )
+        }
 
       </ScrollView>
     </ImageBackground>
@@ -401,7 +358,7 @@ const styles = StyleSheet.create({
   },
   deviceInfoContainer: {
     flexDirection: "row",
-    backgroundColor: bg(),
+    backgroundColor: "lightyellow",
     padding: 20,
     marginHorizontal: 20,
     borderRadius: 20,
@@ -422,7 +379,7 @@ const styles = StyleSheet.create({
   deviceNameText: {
     color: "#345c74",
     fontWeight: "bold",
-    justifyContent:'center',
+    justifyContent: 'center',
     fontSize: 15,
     paddingHorizontal: 20,
     width: 190
@@ -444,7 +401,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 12,
     paddingHorizontal: 20,
-    marginRight:20
+    marginRight: 20
   },
   statusConnected: {
     borderRadius: 50,

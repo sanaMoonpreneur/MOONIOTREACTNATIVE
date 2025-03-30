@@ -87,6 +87,7 @@ const DeviceDetail = ({ navigation, route }) => {
                     <Text style={styles.tokenTitle}>Device Token :</Text>
                     <View style={styles.copyClipboardView}>
                         <Text style={styles.deviceTokenText}>{device.device_token}</Text>
+
                         <TouchableOpacity onPress={() => copyToClipboard(device.device_token)}>
                             <Ionicons name="copy" size={18} color="#345c74" />
                         </TouchableOpacity>
@@ -97,6 +98,7 @@ const DeviceDetail = ({ navigation, route }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.footerContainer}>
+
                     <TouchableOpacity style={styles.controlScreenIconStyle} onPress={() => navigation.navigate("DeviceDetailsHelp", { device })}>
                         <Ionicons name="help-outline" size={26} color="white" />
                     </TouchableOpacity>
@@ -104,6 +106,7 @@ const DeviceDetail = ({ navigation, route }) => {
                     <TouchableOpacity style={styles.helpIconStyle} onPress={() => navigation.navigate("DeviceControl", { device, items: device1, dToken: device.device_token })}>
                         <Ionicons name="arrow-forward" size={26} color="white" />
                     </TouchableOpacity>
+                    
                 </View>
             </View>
         </ImageBackground>

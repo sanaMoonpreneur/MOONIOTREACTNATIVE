@@ -4,28 +4,16 @@ import {
     Text,
     TouchableOpacity,
     StyleSheet,
-    Image,
-    Platform,
-    Keyboard,
     Dimensions,
     TextInput,
-    ActivityIndicator,
-    Switch,
     ScrollView,
 } from "react-native";
 import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { emailValidator } from '../Helper/emailValidator';
-import { passwordValidator } from '../Helper/passwordValidator';
-import { nameValidator } from "../Helper/nameValidator";
-import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation, useTheme } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get("window");
 
 const LoginScreen = (props) => {
-    const [loaded, setLoaded] = useState(false);
-    const navigation = useNavigation();
     const [username, setUsername] = useState({ value: 'neelesh.mb230828004', error: '' });
     const [password, setPassword] = useState({ value: 'A8qXeoFwTzsX', error: '' });
 
@@ -40,7 +28,7 @@ const LoginScreen = (props) => {
                 },
                 body: JSON.stringify({
                     userName: username.value,
-                    password: password.value,   
+                    password: password.value,
                     ipAddress: '127.0.0.1',
                     rememberMe: true,
                 }),
@@ -65,10 +53,6 @@ const LoginScreen = (props) => {
         }
     };
 
-    const animation = useRef(null);
-    useEffect(() => {
-        // Animation effects or any setup on load
-    }, []);
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -77,7 +61,6 @@ const LoginScreen = (props) => {
                 <Text style={styles.headerText}>Login</Text>
                 <LottieView
                     autoPlay
-                    ref={animation}
                     source={require('../assets/images/loginAnime.json')}
                     style={styles.lottieAnimation}
                 />
