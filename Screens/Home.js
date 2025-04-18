@@ -176,131 +176,122 @@ const Home = (props) => {
   );
 
   return (
-
     <ImageBackground
       source={require('../images/Home.png')}
       style={styles.backgroundImage}
     >
-
-      <ScrollView refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
-
+      <View style={{ flex: 1 }}>
         <View style={styles.headerContainer}>
           <View style={styles.headerContent}>
-            <TouchableOpacity style={styles.drawerButton}
+            <TouchableOpacity
+              style={styles.drawerButton}
               onPress={() => {
                 navigation.openDrawer();
               }}
-
             >
               <Image
                 source={require('../images/hum.png')}
                 style={styles.drawerButtonImage}
               />
             </TouchableOpacity>
-
+  
             <View style={styles.welcomeTextContainer}>
-              <Text style={styles.welcomeText}>
-                Welcome Home
-              </Text>
-              <Text style={styles.userNameText}>
-                {user}
-              </Text>
+              <Text style={styles.welcomeText}>Welcome Home</Text>
+              <Text style={styles.userNameText}>{user}</Text>
             </View>
           </View>
         </View>
-
-        <View style={{
-          flexDirection: "row",
-          backgroundColor: "#FFF2F2",
-          marginTop: 35,
-          marginHorizontal: 20,
-          borderRadius: 20,
-          paddingVertical: 35,
-          paddingLeft: 30
-        }}>
+  
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#FFF2F2",
+            marginTop: 35,
+            marginHorizontal: 20,
+            borderRadius: 20,
+            paddingVertical: 35,
+            paddingLeft: 30,
+          }}
+        >
           <View>
-            <Text style={{
-              color: "#345c74",
-              fontSize: 20,
-              fontWeight: "bold",
-              width: 250,
-              paddingRight: 100
-            }}>
+            <Text
+              style={{
+                color: "#345c74",
+                fontSize: 20,
+                fontWeight: "bold",
+                width: 250,
+                paddingRight: 100,
+              }}
+            >
               Start Controlling Your Devices
             </Text>
             <View
-
               style={{
                 backgroundColor: "#f58084",
                 alignItems: "center",
                 marginTop: 20,
                 width: 130,
                 height: 30,
-                justifyContent: 'center',
+                justifyContent: "center",
                 borderRadius: 20,
-                paddingHorizontal: 10
+                paddingHorizontal: 10,
               }}
             >
-              <Text style={{
-                color: "#FFF",
-                fontWeight: "bold",
-                fontSize: 18,
-                alignSelf: 'center',
-              }}>Let's go !</Text>
-
+              <Text
+                style={{
+                  color: "#FFF",
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  alignSelf: "center",
+                }}
+              >
+                Let's go !
+              </Text>
             </View>
           </View>
           <Image
             source={require('../images/undraw.png')}
             style={{ marginLeft: -80, marginTop: 35 }}
           />
-
         </View>
-
+  
         <Text style={styles.addedDevicesText}>Added Devices</Text>
-
-        {isLoading ?
-          (<ActivityIndicator />
-
+  
+        <View style={{ flex: 1 }}>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : devicesResponse && devicesResponse.length > 0 ? (
+            <FlatList
+            contentContainerStyle={{ paddingBottom: 10 }}
+            data={devicesResponse}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+          
           ) : (
-            devicesResponse && devicesResponse.length > 0 ? (
-
-              <View>
-                <FlatList
-                  inverted={true}
-                  data={devicesResponse.slice(0, 3)}
-                  renderItem={renderItem}
-                  keyExtractor={(item, index) => index.toString()}
-
-                />
-
-              </View>
-            ) : (
-              <View style={styles.noDataContainer}>
-
-                <Image source={require('../assets/images/nodataImage.png')} style={styles.noDataImage} />
-
-
-                <TouchableOpacity
-                  onPress={() => {
-                    props.navigation.navigate('ChooseHardware');
-                  }}
-                  style={styles.addDeviceButton}
-                >
-                  <Text style={styles.addDeviceText}>Add Device</Text>
-                </TouchableOpacity>
-
-              </View>
-            )
-          )
-        }
-
-      </ScrollView>
+            <View style={styles.noDataContainer}>
+              <Image
+                source={require('../assets/images/nodataImage.png')}
+                style={styles.noDataImage}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate('ChooseHardware');
+                }}
+                style={styles.addDeviceButton}
+              >
+                <Text style={styles.addDeviceText}>Add Device</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </View>
     </ImageBackground>
-
   );
+  
 };
 
 const styles = StyleSheet.create({
@@ -336,15 +327,16 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   welcomeText: {
-    fontSize: 33,
-    fontWeight: "bold",
-    color: "#FFF"
+    fontSize: 28,
+    fontWeight: "600",
+    color: "#ffffff",
   },
   userNameText: {
-    fontSize: 30,
-    fontWeight: "bold",
-    color: "#FFF"
+    fontSize: 22,
+    color: "#f0e6f6",
+    marginTop: 4,
   },
+  
   addedDevicesHeaderContainer: {
     marginTop: 145,
   },
@@ -358,15 +350,20 @@ const styles = StyleSheet.create({
   },
   deviceInfoContainer: {
     flexDirection: "row",
-    backgroundColor: "lightyellow",
-    padding: 20,
+    backgroundColor: "#fff",
+    padding: 16,
     marginHorizontal: 20,
-    borderRadius: 20,
+    borderRadius: 16,
     alignItems: "center",
-    margin: 10,
-    justifyContent: 'space-between',
-    width: '90%'
+    marginVertical: 10,
+    justifyContent: "space-between",
+    elevation: 3, // Android shadow
+    shadowColor: "#000", // iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
+  
   deviceInfoContent: {
     flexDirection: 'row',
     width: '70%'

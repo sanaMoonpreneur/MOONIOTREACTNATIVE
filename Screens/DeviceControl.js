@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, ImageBackground, Text, Switch, FlatList, StyleSheet, TouchableOpacity, Modal, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { View, Image, ImageBackground, Text, Switch, FlatList, StyleSheet, TouchableOpacity, Modal, TextInput, ActivityIndicator, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -255,89 +255,98 @@ const DeviceControl = ({ navigation, route }) => {
 
   return (
     <ImageBackground source={require('../images/chs.png')} style={{ width: '100%', height: '100%' }}>
-      <View style={{ flex: 1, }}>
-        <View style={{
-          flexDirection: 'row',
-          width: '100%',
-          paddingHorizontal: 20,
-          marginTop: 20,
-          justifyContent: 'space-between'
-        }}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{
-            paddingHorizontal: 10,
-            paddingVertical: 13,
-            borderRadius: 10,
-            marginTop: 30,
-            backgroundColor: '#d1a0a7'
-          }}>
-            <Image source={require('../images/a1.png')} style={{ width: 20, height: 15 }} />
-          </TouchableOpacity>
-        </View>
-        <Text style={{
-          color: 'white', fontSize: 35, fontWeight: "bold", width: '100%', alignSelf: 'center', textAlign: 'center', marginBottom: 20
-        }}>Manage{'\n'} Components</Text>
-        <View style={{ padding: 25, }}>
-
-          <FlatList
-            data={components}
-            renderItem={({ item }) => (
-              <View style={styles.componentItem}>
-                <TouchableOpacity onPress={() => handleSensorPress(item)}>
-                  <Text style={{fontWeight:'bold'}}>{item.device_component_name} ({item.component_pin})</Text>
-                </TouchableOpacity>
-
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
-                  <Switch
-                    value={componentStatuses[item.device_component_id] || false}
-                    onValueChange={() => toggleComponentStatus(item.device_component_id, componentStatuses[item.device_component_id])}
-                  />
-                  <TouchableOpacity onPress={() => deleteComponent(item)}>
-                    <MaterialIcons name="cancel" size={24} color="grey" />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
-            keyExtractor={(item) => item.device_component_id.toString()}
-          />
-
-          <TouchableOpacity style={styles.button} onPress={() => setBottomSheetVisible(true)}>
-            <Text style={styles.buttonText}>Add Component</Text>
-          </TouchableOpacity>
-
-          <Modal visible={isBottomSheetVisible} animationType="slide" transparent>
-            <View style={styles.bottomSheetContainer}>
-              <View style={styles.bottomSheet}>
-                <Text style={styles.bottomSheetTitle}>Select Component Type</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Component Name"
-                  value={componentName}
-                  onChangeText={setComponentName}
-                />
-                <TouchableOpacity
-                  style={[styles.optionButton, selectedType === 'Sensor' && styles.selectedOption]}
-                  onPress={() => setSelectedType('Sensor')}>
-                  <Text style={styles.optionText}>Sensor</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.optionButton, selectedType === 'Toggle' && styles.selectedOption]}
-                  onPress={() => setSelectedType('Toggle')}>
-                  <Text style={styles.optionText}>Toggle</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.cancelButton} onPress={() => setBottomSheetVisible(false)}>
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.save} onPress={saveComponent} disabled={isLoading}>
-                  {isLoading ? <ActivityIndicator size="small" color="#fff" /> : <Text style={styles.saveText}>Save</Text>}
-                </TouchableOpacity>
-              </View>
+      <FlatList
+        data={[1]} // Use a dummy array to enable rendering of the screen
+        renderItem={() => (
+          <View style={{ flex: 1 }}>
+            <View style={{
+              flexDirection: 'row',
+              width: '100%',
+              paddingHorizontal: 20,
+              marginTop: 20,
+              justifyContent: 'space-between'
+            }}>
+              <TouchableOpacity onPress={() => navigation.goBack()} style={{
+                paddingHorizontal: 10,
+                paddingVertical: 13,
+                borderRadius: 10,
+                marginTop: 30,
+                backgroundColor: '#d1a0a7'
+              }}>
+                <Image source={require('../images/a1.png')} style={{ width: 20, height: 15 }} />
+              </TouchableOpacity>
             </View>
-          </Modal>
-        </View>
-      </View>
+  
+            <Text style={{
+              color: 'white', fontSize: 35, fontWeight: "bold", width: '100%', alignSelf: 'center', textAlign: 'center', marginBottom: 20
+            }}>Manage{'\n'} Components</Text>
+  
+            <View style={{ padding: 25 }}>
+              <FlatList
+                data={components}
+                renderItem={({ item }) => (
+                  <View style={styles.componentItem}>
+                    <TouchableOpacity onPress={() => handleSensorPress(item)}>
+                      <Text style={{ fontWeight: 'bold' }}>{item.device_component_name} ({item.component_pin})</Text>
+                    </TouchableOpacity>
+  
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+                      <Switch
+                        value={componentStatuses[item.device_component_id] || false}
+                        onValueChange={() => toggleComponentStatus(item.device_component_id, componentStatuses[item.device_component_id])}
+                      />
+                      <TouchableOpacity onPress={() => deleteComponent(item)}>
+                        <MaterialIcons name="cancel" size={24} color="grey" />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                )}
+                keyExtractor={(item) => item.device_component_id.toString()}
+              />
+  
+              <TouchableOpacity style={styles.button} onPress={() => setBottomSheetVisible(true)}>
+                <Text style={styles.buttonText}>Add Component</Text>
+              </TouchableOpacity>
+  
+              <Modal visible={isBottomSheetVisible} animationType="slide" transparent>
+                <View style={styles.bottomSheetContainer}>
+                  <View style={styles.bottomSheet}>
+                    <Text style={styles.bottomSheetTitle}>Select Component Type</Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Component Name"
+                      value={componentName}
+                      onChangeText={setComponentName}
+                    />
+                    <TouchableOpacity
+                      style={[styles.optionButton, selectedType === 'Sensor' && styles.selectedOption]}
+                      onPress={() => setSelectedType('Sensor')}>
+                      <Text style={styles.optionText}>Sensor</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.optionButton, selectedType === 'Toggle' && styles.selectedOption]}
+                      onPress={() => setSelectedType('Toggle')}>
+                      <Text style={styles.optionText}>Toggle</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.cancelButton} onPress={() => setBottomSheetVisible(false)}>
+                      <Text style={styles.cancelButtonText}>Cancel</Text>
+                    </TouchableOpacity>
+  
+                    <TouchableOpacity style={styles.save} onPress={saveComponent} disabled={isLoading}>
+                      {isLoading ? <ActivityIndicator size="small" color="#fff" /> : <Text style={styles.saveText}>Save</Text>}
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+            </View>
+          </View>
+        )}
+        keyExtractor={() => '1'} // Only one dummy item to trigger the render
+        showsVerticalScrollIndicator={false} // Optionally hide the scroll indicator
+      />
     </ImageBackground>
   );
+  
 };
 
 const styles = StyleSheet.create({

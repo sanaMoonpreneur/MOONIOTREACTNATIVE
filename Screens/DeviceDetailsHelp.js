@@ -62,11 +62,17 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
       <View style={styles.container}>
 
-        <ScrollView
-          showsVerticalScrollIndicator={false} style={{
-            borderTopRightRadius: 30,
-            borderTopLeftRadius: 30,
-          }}>
+
+      <View style={{
+         backgroundColor: '#FFF2F2', 
+         borderTopLeftRadius: 30,
+         borderTopRightRadius: 30,
+         overflow: 'hidden', 
+         flex: 1,
+           }}>
+          <ScrollView
+           showsVerticalScrollIndicator={false}
+           contentContainerStyle={{ padding: 20 }}>
 
 
 
@@ -233,7 +239,7 @@ const DeviceDetailsHelp = ({ route, navigation }) => {
 
 
         </ScrollView>
-
+      </View>
       </View>
     </ImageBackground>
 
